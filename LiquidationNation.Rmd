@@ -2,7 +2,7 @@
 title: "Liquidation Nation: Chapter 7 Bankruptcy in the US"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: rows
+    orientation: columns
     vertical_layout: fill
 ---
 
@@ -10,13 +10,15 @@ output:
 library(flexdashboard)
 library(tidyverse)
 library(lubridate)
-library(plotly)
 library(readxl)
 library(openxlsx)
 library(forcats)
 library(leaflet)
 library(rgdal)
 library(sf)
+library(plotly)
+library(tmap)
+library(tmaptools)
 ```
 
 ```{r data, include=FALSE}
@@ -116,20 +118,36 @@ pal <- colorFactor(palette = c("cadetblue", "chartreuse", "chocolate1",
 
 Overview
 ====================================================================
-This is where I talk about how I found the report, and I why I am remaking it using new data. 
+
+Background {data-width=300}
+-----------------------------------------------------------------------
+
+I came across this report while doing research for my Bankruptcy Law Class
+
+The original report was published in 2001 by the Department of Justice
+
+These are some of the charts from the report 
+
+Click the "Charts" tab to view some of the charts that I updated using new Bankruptcy data
+
+In addition to remaking the original charts, I've included some new, interactive charts. 
+
+Chart Examples from Original Report {data-width=700}
+-----------------------------------------------------------------------
+![Original Report Graphics](original_graphics/og_report_grid.PNG)
 
 
-FIG B-2 {.storyboard data-navmenu=Charts}
+CH7 Asset Cases by State {.storyboard data-navmenu=Charts}
 ====================================================================
 
 ### Here is a map from the original 2001 report 
 
-![Figure B2](B2_original.PNG)
+![Fig-B2 Original](original_graphics/B2_original.PNG)
 
 ### This is a map that I made depicts the same topic, but uses data from 2001-2018
+![Fig-B2 New](my_version_graphics/B2_map_new.PNG)
 
-
-### This is an interactive version of the map, created using leaflet
+### This is an interactive version of the map, created using leaflet in R
 
 ```{r}
 #read in the bank office location info 
@@ -154,7 +172,7 @@ m %>%  addCircleMarkers(lng = ~lon.y,
                    popup = ~paste0(office,
                                    "<br/>",
                                    n, " CASES"),
-                   radius = 3, 
+                   radius = 3,
                    color = 'black', 
                    data = bank_combo)
 ```
@@ -192,31 +210,138 @@ In addition to providing significantly more information to the viewer, the chart
 
 Try it out
 
-FIG B-4 {data-navmenu=Charts}
+Total Receipts in CH7 Asset Cases {data-navmenu=Charts}
 ====================================================================
 
 
-Column {data-height=350}
+Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Dept of Justice Report (Original)
+### Dept of Justice Report
 
-```{r}
+![Fig-B4 Original](original_graphics/B4_bar_original.PNG)
 
-```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
 
 ### Updated Report
 
-```{r}
+![Fig-B4 New](my_version_graphics/B4_bar_new.PNG)
 
-```
+Total Receipts by State {data-navmenu=Charts}
+====================================================================
 
-Column {data-height=600}
+
+Column {data-width=500}
 -----------------------------------------------------------------------
 
-### Upgraded Report
+### Dept of Justice Report
 
-```{r}
+![Fig-B5 Original](original_graphics/B5_map_original.PNG)
 
-```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Updated Report
+
+![Fig-B5 New](my_version_graphics/B5_map_new.PNG)
+
+Very Large CH7 Asset Cases {data-navmenu=Charts}
+====================================================================
+
+
+Column {data-width=400}
+-----------------------------------------------------------------------
+
+### Dept of Justice Report
+
+![B7 Original](original_graphics/B7_bar_original.PNG)
+
+
+Column {data-width=600}
+-----------------------------------------------------------------------
+
+### Updated Report
+
+![B7 New](my_version_graphics/B7_bar_new.PNG)
+
+Total Disbursements {data-navmenu=Charts}
+====================================================================
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Dept of Justice Report
+
+![Fig-B9 Original](original_graphics/B9_table_original.PNG)
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Updated Report
+
+![Fig-B9 New](my_version_graphics/B9_table_new.PNG)
+
+Cases with No Payments to Creditors {data-navmenu=Charts}
+====================================================================
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Dept of Justice Report
+
+![Fig-B10 Original](original_graphics/B10_bar_original.PNG)
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Updated Report
+
+![Fig-10 New](my_version_graphics/B10_bar_new.PNG)
+
+Distributions by Case Size {data-navmenu=Charts}
+====================================================================
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Dept of Justice Report
+
+![Fig-B12 Original](original_graphics/B12_bar_original.PNG)
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Updated Report
+
+![Fig-B12 New](my_version_graphics/B12_bar_new.PNG)
+
+Bankruptcy Filings by Chapter {data-navmenu=Charts}
+====================================================================
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Dept of Justice Report
+
+![Fig-A1 Original](original_graphics/A1_pie_original.PNG)
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Updated Report
+
+![Fig-A1 New](my_version_graphics/A1_pie_new.PNG)
+
+
 
